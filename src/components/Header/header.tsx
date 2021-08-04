@@ -20,7 +20,7 @@ export default function Header() {
           <Icon as={RiUserAddLine} fontSize="20"></Icon>
         </HStack>
         <Flex align="center">
-          <Box marginRight="4" textAlign="4">
+          <Box marginRight="4" textAlign="right">
             <Text>Brian Pontes</Text>
             <Text color="gray.300" fontSize="small">
               brian.robert16@hotmail.com
