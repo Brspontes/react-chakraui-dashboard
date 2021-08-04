@@ -1,5 +1,5 @@
-import { Flex, Text, Input, Icon } from '@chakra-ui/react'
-import { RiSearchLine } from 'react-icons/ri'
+import { Flex, Text, Input, Icon, HStack, Box, Avatar } from '@chakra-ui/react'
+import { RiNotificationLine, RiSearchLine, RiUserAddLine } from 'react-icons/ri'
 
 export default function Header() {
   return (
@@ -13,6 +13,21 @@ export default function Header() {
 
         <Input color="gray.50" variant="unstyled" placeholder="Buscar na plataforma" _placeholder={{ color: "gray.400" }} paddingX="4" marginRight="4" />
         <Icon as={RiSearchLine} fontSize="20" />
+      </Flex>
+      <Flex align="center" marginLeft="auto">
+        <HStack spacing="4" marginX="8" paddingRight="8" paddingY="1" color="gray.300" borderRightWidth={1} borderColor="gray.700">
+          <Icon as={RiNotificationLine} fontSize="20"></Icon>
+          <Icon as={RiUserAddLine} fontSize="20"></Icon>
+        </HStack>
+        <Flex align="center">
+          <Box marginRight="4" textAlign="4">
+            <Text>Brian Pontes</Text>
+            <Text color="gray.300" fontSize="small">
+              brian.robert16@hotmail.com
+            </Text>
+          </Box>
+          <Avatar size="md" name="Brian Pontes" /> 
+        </Flex>
       </Flex>
     </Flex>
   )
