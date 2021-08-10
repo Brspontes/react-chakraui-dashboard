@@ -4,7 +4,7 @@ import PaginationItem from "./PaginationItem";
 
 export default function Pagination() {
   return (
-    <Stack direction="row" marginTop="8" justify="space-between" align="center" spacing="6">
+    <Stack direction={["column","row"]} marginTop="8" justify="space-between" align="center" spacing="6">
       <Box>
         <strong> 0 </strong> - <strong> 10 </strong> de <strong> 100 </strong>
       </Box>

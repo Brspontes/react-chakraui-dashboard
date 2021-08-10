@@ -15,12 +15,12 @@ export default function Header() {
     <Flex as="header" width="100%" maxWidth={1480} height="20" marginX="auto" marginTop="4" paddingX="6" align="center">
       {!isWideVersion && (
         <IconButton fontSize="24" marginRight="2" variant="unstyled" 
-          onClick={onOpen} aria-label="Open navigation" icon={<Icon as={RiMenuLine}/>}>
+        onClick={onOpen} aria-label="Open navigation" icon={<Icon as={RiMenuLine}/>}>
         </IconButton>
       )}
       <Logo />
       {isWideVersion && <SearchBox />}
-      <Flex align="center" marginLeft={["30","auto"]}>
+      <Flex align="center" marginLeft="auto">
         <NotificationsNav />
         <Proffile showProfileData={isWideVersion} />
       </Flex>
