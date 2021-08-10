@@ -69,11 +69,11 @@ export default function Dashboard() {
       <Flex width="100%" marginY="6" maxWidth={1480} marginX="auto" paddingX="6">
         <Sidebar />
         <SimpleGrid flex="1" gap="4" minChildWidth="320px" align="flex-start">
-          <Box padding="8" backgroundColor="gray.800" borderRadius={8} paddingBottom="4">
+          <Box padding={["6","8"]} backgroundColor="gray.800" borderRadius={8} paddingBottom="4">
             <Text fontSize="lg" marginBottom="4">Inscritos da semana</Text>
             <Chart type="area" height={160} series={series} options={options} />
           </Box>
-          <Box padding="8" backgroundColor="gray.800" borderRadius={8}>
+          <Box padding={["6","8"]} backgroundColor="gray.800" borderRadius={8}>
             <Text fontSize="lg" marginBottom="4">Taxa de abertura</Text>
             <Chart type="area" height={160} series={series} options={options} />
           </Box>
