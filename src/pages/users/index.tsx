@@ -1,11 +1,20 @@
-import { Box, Flex, Heading, Button, Icon, Table, Thead, Tr, Td, Th, Checkbox, Tbody, Text, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Flex, Heading, Button, Icon, Table, Thead, Tr, Td, Th, Checkbox, Tbody, Text, useBreakpointValue, Spinner } from "@chakra-ui/react";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
+import { useQuery } from 'react-query'
 import Header from "../../components/Header/";
 import Sidebar from "../../components/Sidebar";
 import Pagination from "../../components/Pagination";
 import Link from 'next/link'
 
+
 export default function UserList() {
+
+  const { data, isLoading, error } = useQuery('users', async () => {
+    const response = await fetch('http://localhost:3000/api/users')
+    const data = await response.json()
+    
+    return data
+  })
 
   const isWideVersion = useBreakpointValue({
     base: false,
@@ -28,53 +37,67 @@ export default function UserList() {
               </Button>
             </Link>
           </Flex>
-          <Table colorScheme="whiteAlpha">
-            <Thead>
-              <Tr>
-                <Th paddingX={["4","4","6"]} color="gray.300" width="8">
-                  <Checkbox colorScheme="pink" />
-                </Th>
-                <Th>Usuário</Th>
-                {isWideVersion && (
-                  <Th>Data de cadastro</Th>
-                )}
-                <Th width="8"></Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              <Tr>
-                <Td paddingX="6">
-                  <Checkbox colorScheme="pink" />
-                </Td>
-                <Td>
-                  <Box>
-                    <Text fontWeight="bold" >Brian Pontes</Text>
-                    <Text fontSize="small" color="gray.300" >brian.robert16@hotmail.com</Text>
-                  </Box>
-                </Td>
-                {isWideVersion && (
-                  <Td>
-                    05 de Agosto, 2021
-                  </Td>
-                )}
-                <Td>
-                  {isWideVersion ? 
-                    (
-                      <Button as="a" size="sm" fontSize="sm" colorScheme="orange" leftIcon={<Icon as={RiPencilLine}  fontSize="20"/>}>
-                        Editar
-                      </Button>
-                    ) 
-                    : 
-                    (
-                      <Button as="a" size="sm" fontSize="sm" colorScheme="orange" iconSpacing="0.5" leftIcon={<Icon as={RiPencilLine} fontSize="20"/>}>
-                      </Button>
-                    )
-                  }
-                </Td>
-              </Tr>
-            </Tbody>
-          </Table>
-          <Pagination />
+          {isLoading ?(
+            <Flex justify="center">
+              <Spinner />
+            </Flex>
+          ) : 
+          error ? (
+            <Flex justify="center">
+              <Text>Falha ao obter dados dos usuáriuos</Text>
+            </Flex>
+          ) :
+          (
+            <>
+              <Table colorScheme="whiteAlpha">
+                <Thead>
+                  <Tr>
+                    <Th paddingX={["4","4","6"]} color="gray.300" width="8">
+                      <Checkbox colorScheme="pink" />
+                    </Th>
+                    <Th>Usuário</Th>
+                    {isWideVersion && (
+                      <Th>Data de cadastro</Th>
+                    )}
+                    <Th width="8"></Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  <Tr>
+                    <Td paddingX="6">
+                      <Checkbox colorScheme="pink" />
+                    </Td>
+                    <Td>
+                      <Box>
+                        <Text fontWeight="bold" >Brian Pontes</Text>
+                        <Text fontSize="small" color="gray.300" >brian.robert16@hotmail.com</Text>
+                      </Box>
+                    </Td>
+                    {isWideVersion && (
+                      <Td>
+                        05 de Agosto, 2021
+                      </Td>
+                    )}
+                    <Td>
+                      {isWideVersion ? 
+                        (
+                          <Button as="a" size="sm" fontSize="sm" colorScheme="orange" leftIcon={<Icon as={RiPencilLine}  fontSize="20"/>}>
+                            Editar
+                          </Button>
+                        ) 
+                        : 
+                        (
+                          <Button as="a" size="sm" fontSize="sm" colorScheme="orange" iconSpacing="0.5" leftIcon={<Icon as={RiPencilLine} fontSize="20"/>}>
+                          </Button>
+                        )
+                      }
+                    </Td>
+                  </Tr>
+                </Tbody>
+              </Table>
+              <Pagination />
+            </>
+          )}
         </Box>
       </Flex>
     </Box>
