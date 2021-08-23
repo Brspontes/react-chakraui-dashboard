@@ -1,16 +1,18 @@
 import { Box, Flex, Heading, Button, Icon, Table, Thead, Tr, Td, Th, Checkbox, Tbody, Text, useBreakpointValue, Spinner, Link } from "@chakra-ui/react";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
-import Header from "../../components/Header/";
-import Sidebar from "../../components/Sidebar";
-import Pagination from "../../components/Pagination";
-import NextLink from 'next/link'
 import { useUsers } from "../../services/hooks/useUsers";
 import { useState } from "react";
 import { queryClient } from "../../services/queryClient";
 import { api } from "../../services/api";
+import { GetServerSideProps } from "next";
+import { getUsers } from '../../services/hooks/useUsers'
+import Header from "../../components/Header/";
+import Sidebar from "../../components/Sidebar";
+import Pagination from "../../components/Pagination";
+import NextLink from 'next/link'
 
 
-async function handlePrefetchUser(userId: number) {
+async function handlePrefetchUser(userId: string) {
   await queryClient.prefetchQuery(['user', userId], async () => {
     const response = await api.get(`users/${userId}`)
     return response.data
@@ -19,9 +21,11 @@ async function handlePrefetchUser(userId: number) {
   })
 }
 
-export default function UserList() {
+export default function UserList({ users }) {
   const [page, setPage] = useState(1)
-  const { data, isLoading, isFetching, error } = useUsers(page)
+  const { data, isLoading, isFetching, error } = useUsers(page, {
+    initialData: users
+  })
 
   const isWideVersion = useBreakpointValue({
     base: false,
@@ -116,4 +120,14 @@ export default function UserList() {
       </Flex>
     </Box>
   )
+}
+
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const { users, totalCount } = await getUsers(1)
+  return {
+    props: {
+      users
+    }
+  }
 }
